@@ -22,6 +22,8 @@ routes.get('/neousers', function(req, res) {
         }
     });*/
     console.log("hey");
+    return("hey").toJSON();
+    /*
     var session = driver.session();
     console.log("we have a session");
     session
@@ -36,6 +38,7 @@ routes.get('/neousers', function(req, res) {
         .catch(function(error) {
             console.log("meh: " + error);
         });
+        */
 });
 
 module.exports = routes;
