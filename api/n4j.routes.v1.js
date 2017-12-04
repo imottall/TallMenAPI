@@ -7,7 +7,7 @@ var driver =
     neo4j.driver("bolt://hobby-npihgclecffdgbkehgonlial.dbs.graphenedb.com:24786",
     neo4j.auth.basic("admin", "b.gj4kU3HhDiFG.hhoE5SZipR0xvYXl"));
 
-routes.get('/neo/users', function(req, res) {
+routes.get('/neousers', function(req, res) {
     /*db.cypher({
         query: 'CREATE (n:Person {name: {personName}}) RETURN n',
         params: {
