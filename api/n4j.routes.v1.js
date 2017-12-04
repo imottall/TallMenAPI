@@ -4,7 +4,7 @@ var neo4j = require('neo4j');
 var db = new neo4j.GraphDatabase("https://hobby-npihgclecffdgbkehgonlial.dbs.graphenedb.com:24780");
 
 
-routes.get('/neo/users', function(req, res) {
+routes.get('/neousers', function(req, res) {
     db.cypher({
         query: 'CREATE (n:Person {name: {personName}}) RETURN n',
         params: {
