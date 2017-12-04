@@ -21,7 +21,9 @@ routes.get('/neousers', function(req, res) {
             console.log('Node saved to database with id:', result['n']['_id']);
         }
     });*/
+    console.log("hey");
     var session = driver.session();
+    console.log("we have a session");
     session
         .run("CREATE (n:Person {name:'Bob'}) RETURN n.name")
         .then(function(result) {
@@ -32,7 +34,7 @@ routes.get('/neousers', function(req, res) {
             session.close();
         })
         .catch(function(error) {
-            console.log(error);
+            console.log("meh: " + error);
         });
 });
 
