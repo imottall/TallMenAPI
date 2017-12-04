@@ -22,7 +22,7 @@ routes.get('/neousers', function(req, res) {
         }
     });*/
     console.log("hey");
-    return("hey").toJSON();
+    return("hey");
     /*
     var session = driver.session();
     console.log("we have a session");
