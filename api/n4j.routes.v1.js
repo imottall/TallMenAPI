@@ -20,20 +20,4 @@ routes.get('/neo/users', function(req, res) {
     });
 });
 
-routes.post('/neo/newuser', function(req, res) {
-    db.cypher({
-        query: 'CREATE (n:Person {name: {personName}}) RETURN n',
-        params: {
-            personName: 'Bob'
-        }
-    }, function(err, results){
-        var result = results[0];
-        if (err) {
-            console.error('Error saving new node to database:', err);
-        } else {
-            console.log('Node saved to database with id:', result['n']['_id']);
-        }
-    });
-});
-
 module.exports = routes;
