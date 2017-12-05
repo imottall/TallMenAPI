@@ -22,8 +22,7 @@ routes.get('/neousers', function(req, res) {
         }
     });*/
     console.log("hey");
-    return("hey");
-    /*
+
     var session = driver.session();
     console.log("we have a session");
     session
@@ -32,13 +31,14 @@ routes.get('/neousers', function(req, res) {
             result.records.forEach(function(record) {
                 console.log(record)
             });
+            res.status(200).json(result);
 
             session.close();
         })
         .catch(function(error) {
+            res.status(418).json(error);
             console.log("meh: " + error);
         });
-        */
 });
 
 module.exports = routes;
