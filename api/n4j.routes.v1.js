@@ -8,7 +8,7 @@ var driver =
 routes.get('/games', function(req, res){
    var session = driver.session();
    session
-       .run("MATCH (g:Game) RETURN g.name, g.genre, g.wallpaperImagePath, g.coverImagePath")
+       .run("MATCH (g:Game) RETURN g.name AS name, g.genre AS genre, g.wallpaperImagePath AS wallpaperImagePath, g.coverImagePath AS coverImagePath")
        .then(function(result) {
            result.records.forEach(function(record){
                console.log(record.get('name'))
