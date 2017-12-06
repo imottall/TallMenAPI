@@ -13,7 +13,7 @@ routes.get('/games', function(req, res){
            result.records.forEach(function(record){
                console.log(record.get('name'))
            });
-           res.status(200).json(result.records.fields);
+           res.status(200).json(result);
            session.close();
        })
        .catch(function(error){
