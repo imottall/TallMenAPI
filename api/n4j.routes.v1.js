@@ -14,7 +14,7 @@ routes.get('/games', function(req, res){
                console.log(record)
            });
            var resultObject = JSON.parse(result);
-           res.status(200).json(resultObject.properties);
+           res.status(200).json(resultObject);
            session.close();
        })
        .catch(function(error){
