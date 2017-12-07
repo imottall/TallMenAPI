@@ -41,6 +41,7 @@ routes.post('/:id/newPost', function(req, res, next) {
 
 /**
  * Returns all the replies from a specific post
+ * TODO: fix this
  */
 routes.get('/:id/replies', function(req,res) {
     const postId = req.params.id;
@@ -57,8 +58,8 @@ routes.post('/:id/newReply', function(req, res, next) {
     const postID = req.params.id;
     const newReply = req.body;
 
-    Forum.update({_id: postID}, {$push: {posts: newPost}})
-        .then(forum => res.send(forum))
+    Forum.update({_id: postID}, {$push: {posts: newReply}})
+        .then(reply => res.send(reply))
         .catch((error) => res.status(400).json(error))
 });
 
