@@ -30,8 +30,6 @@ const ForumSchema = new Schema({
                 }
             }]
         }]
-}, {
-    timestamps: true
 });
 
 
