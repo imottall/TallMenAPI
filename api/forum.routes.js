@@ -16,7 +16,7 @@ routes.get('/forums', function(req, res) {
 routes.get('/:id/posts', function(req,res) {
     const forumId = req.params.id;
 
-    Forum.findOne({_id: forumId.posts})
+    Forum.findOne({_id: forumId},{posts:1,topic: 0, _id: 0})
         .then((posts) => res.status(200).json(posts))
         .catch((error) => res.status(400).json(error));
 });
