@@ -46,7 +46,7 @@ routes.get('/:id/replies', function(req,res) {
     const postId = req.params.id;
 
     Forum.findOne({_id: postId},{replies:1,_id: 1})
-        .then((posts) => res.status(200).json(posts))
+        .then((replies) => res.status(200).json(replies))
         .catch((error) => res.status(400).json(error));
 });
 
