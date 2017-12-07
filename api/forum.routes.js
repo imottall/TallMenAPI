@@ -30,7 +30,7 @@ routes.post('/forums/:id', function(req, res, next) {
 
     Forum.update(
         {_id: forumID},
-        { $addToSet: { posts: [newPost] }}
+        { $push: { posts: newPost }}
     )
     .then(forum => res.send(forum))
     .catch((error) => res.status(400).json(error))
