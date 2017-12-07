@@ -6,8 +6,8 @@ var express = require('express');
 var bodyParser = require('body-parser')
 var logger = require('morgan');
 var userroutes_v1 = require('./api/user.routes.v1');
-var neoroutes_v1 = require('./api/n4j.routes.v1');
-var forumroutes = require('./api/forum.routes');
+var gameroutes = require('./api/games.routes');
+var forumsroutes = require('./api/forums.routes');
 // var auth_routes_v1 = require('./api/authentication.routes.v1');
 var config = require('./config/env/env');
 // var expressJWT = require('express-jwt');
@@ -59,8 +59,8 @@ app.use(function (req, res, next) {
 
 // Installeer de routers
 // app.use('/api/v1', auth_routes_v1);
-app.use('', forumroutes);
-app.use('', neoroutes_v1);
+app.use('', forumsroutes);
+app.use('', gamesroutes);
 app.use('', userroutes_v1);
 
 // Errorhandler voor express-jwt errors
