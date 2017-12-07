@@ -53,6 +53,7 @@ routes.get('/:id/replies', function(req,res) {
 
 /**
  * Add a new reply to a specific post
+ * TODO: fix this
  */
 routes.post('/:id/newReply', function(req, res, next) {
     const postID = req.params.id;
