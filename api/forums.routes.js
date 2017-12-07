@@ -58,8 +58,8 @@ routes.post('/:id/newReply', function(req, res, next) {
     const newReply = req.body;
 
     Forum.update({_id: forumID}, {$push: {posts: newPost}})
-        .then(forum = > res.send(forum))
-        .catch((error) = > res.status(400).json(error))
+        .then(forum => res.send(forum))
+        .catch((error) => res.status(400).json(error))
 });
 
 module.exports = routes;

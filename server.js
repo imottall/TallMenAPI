@@ -1,7 +1,6 @@
 //
 // server.js
 //
-var http = require('http');
 var express = require('express');
 var bodyParser = require('body-parser')
 var logger = require('morgan');
@@ -22,7 +21,7 @@ app.use(bodyParser.json({
 }));
 
 app.set('port', (process.env.PORT | config.env.webPort));
-app.set('env', (process.env.ENV | 'development'))
+app.set('env', (process.env.ENV | 'development'));
 
 app.use(logger('dev'));
 
@@ -51,7 +50,7 @@ app.use(function (err, req, res, next) {
         code: err.code,
         name: err.name,
         status: err.status
-    }
+    };
     res.status(401).send(error);
 });
 
