@@ -10,7 +10,7 @@ routes.get('/forums', function(req, res) {
     res.contentType('application/json');
     Forum.find({})
         .then((forums) => res.status(200).json(forums))
-    .catch((error) => res.status(401).json(error))
+    .catch((error) => res.status(401).json(error));
 });
 
 /**
@@ -21,7 +21,7 @@ routes.get('/:id/posts', function(req,res) {
 
     Forum.findOne({_id: forumId},{posts:1,_id: 1, replies:0})
         .then((posts) => res.status(200).json(posts))
-        .catch((error) => res.status(400).json(error))
+        .catch((error) => res.status(400).json(error));
 });
 
 /**
@@ -47,7 +47,7 @@ routes.get('/:id/replies', function(req,res) {
 
     Forum.findOne({_id: postId},{replies:1,_id: 1, message:0, title:0, author:0})
         .then((posts) => res.status(200).json(posts))
-        .catch((error) => res.status(400).json(error))
+        .catch((error) => res.status(400).json(error));
 });
 
 /**

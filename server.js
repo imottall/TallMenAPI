@@ -8,41 +8,24 @@ var logger = require('morgan');
 var userroutes_v1 = require('./api/user.routes.v1');
 var gamesroutes = require('./api/games.routes');
 var forumsroutes = require('./api/forums.routes');
-// var auth_routes_v1 = require('./api/authentication.routes.v1');
 var config = require('./config/env/env');
-// var expressJWT = require('express-jwt');
-
 var app = express();
 
-// Met module.exports kunnen we variabelen beschikbaar maken voor andere bestanden.
-// Je zou dit kunnen vergelijken met het 'public' maken van attributen in Java.
-// Javascript neemt impliciet aan dat bovenaan ieder bestand de volgende regel staat.
-// Deze kun je dus weglaten!
-// Zie eventueel ook: https://www.sitepoint.com/understanding-module-exports-exports-node-js/  
 module.exports = {};
 
-// bodyParser zorgt dat we de body uit een request kunnen gebruiken,
-// hierin zit de inhoud van een POST request.
 app.use(bodyParser.urlencoded({
     'extended': 'true'
-})); // parse application/x-www-form-urlencoded
+}));
 app.use(bodyParser.json()); // parse application/json
 app.use(bodyParser.json({
     type: 'application/vnd.api+json'
 }));
 
-// configureer de app
 app.set('port', (process.env.PORT | config.env.webPort));
 app.set('env', (process.env.ENV | 'development'))
 
-// wanneer je je settings wilt controleren
-// console.dir(config);
-// console.log(config.dburl);
-
-// Installeer Morgan als logger
 app.use(logger('dev'));
 
-// CORS headers
 app.use(function (req, res, next) {
     // Website you wish to allow to connect
     res.setHeader('Access-Control-Allow-Origin', process.env.ALLOW_ORIGIN || 'http://localhost:4200');
@@ -57,14 +40,10 @@ app.use(function (req, res, next) {
     next();
 });
 
-// Installeer de routers
-// app.use('/api/v1', auth_routes_v1);
 app.use('', forumsroutes);
 app.use('', gamesroutes);
 app.use('', userroutes_v1);
 
-// Errorhandler voor express-jwt errors
-// Wordt uitgevoerd wanneer err != null; anders door naar next().
 app.use(function (err, req, res, next) {
     // console.dir(err);
     var error = {
@@ -76,7 +55,6 @@ app.use(function (err, req, res, next) {
     res.status(401).send(error);
 });
 
-// Fallback - als geen enkele andere route slaagt wordt deze uitgevoerd. 
 app.use('*', function (req, res) {
     res.status(400);
     res.json({
@@ -84,11 +62,9 @@ app.use('*', function (req, res) {
     });
 });
 
-// Installatie klaar; start de server.
 app.listen(config.env.webPort, function () {
     console.log('De server luistert op port ' + app.get('port'));
     console.log('Zie bijvoorbeeld http://localhost:3000/users');
 });
 
-// Voor testen met mocha/chai moeten we de app exporteren.
 module.exports = app;
