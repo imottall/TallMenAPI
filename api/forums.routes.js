@@ -19,7 +19,7 @@ routes.get('/forums', function(req, res) {
 routes.get('/:id/posts', function(req,res) {
     const forumId = req.params.id;
 
-    Forum.findOne({_id: forumId},{posts:1,_id: 1, replies:0})
+    Forum.findOne({_id: forumId},{posts:1,_id: 1})
         .then((posts) => res.status(200).json(posts))
         .catch((error) => res.status(400).json(error));
 });
@@ -45,7 +45,7 @@ routes.post('/:id/newPost', function(req, res, next) {
 routes.get('/:id/replies', function(req,res) {
     const postId = req.params.id;
 
-    Forum.findOne({_id: postId},{replies:1,_id: 1, message:0, title:0, author:0})
+    Forum.findOne({_id: postId},{replies:1,_id: 1})
         .then((posts) => res.status(200).json(posts))
         .catch((error) => res.status(400).json(error));
 });
