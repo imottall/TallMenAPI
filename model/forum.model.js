@@ -41,7 +41,7 @@ const Forum = mongoose.model('forum', ForumSchema);
 
 // Add a 'dummy' user (every time you require this file!)
 const forum = new Forum({
-    topic: 'dummy'
+    forums: [{topic: 'dummy'}]
 }).save();
 
 module.exports = Forum;
