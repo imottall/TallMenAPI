@@ -20,7 +20,7 @@ routes.get('/:id/posts', function(req,res) {
     const forumId = req.params.id;
 
     Forum.find({_id: forumId},{posts:1,_id: 1})
-        .then((posts) => res.status(200).json(posts))
+        .then((forum) => res.status(200).json(forum))
         .catch((error) => res.status(400).json(error));
 });
 
@@ -35,7 +35,7 @@ routes.post('/:id/newPost', function(req, res, next) {
         {_id: forumID},
         { $push: { posts: newPost }}
     )
-    .then(forum => res.send(forum))
+    .then(post => res.send(post))
     .catch((error) => res.status(400).json(error))
 });
 
@@ -48,7 +48,7 @@ routes.get('/:forumID/:postID/replies', function(req,res) {
     const postId = req.params.postID;
 
     Forum.find({_id: forumId},{posts: { $elemMatch: { _id: postId}}})
-        .then((replies) => res.status(200).json(replies))
+        .then((forum) => res.status(200).json(forum.posts.replies))
         .catch((error) => res.status(400).json(error));
 });
 
