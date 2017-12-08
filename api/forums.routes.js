@@ -62,7 +62,9 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
     Forum.find({ "_id": forumId, "posts._id": postId},
         { "$push":
             {"posts.$.replies":
-                    newReply
+                {
+                    "message":"testmessage bro"
+                }
             }
         }
     )
