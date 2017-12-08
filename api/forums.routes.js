@@ -59,7 +59,7 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
     const postId = req.params.postID;
     const newReply = req.body;
 
-    Forum.find({ "_id": forumId, "posts._id": postId},
+    Forum.findOneAndUpdate({ "_id": forumId, "posts._id": postId},
         { "$push":
             {"posts.$.replies":
                 {
