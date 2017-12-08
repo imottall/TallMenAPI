@@ -19,7 +19,7 @@ routes.get('/forums', function(req, res) {
 routes.get('/:id/posts', function(req,res) {
     const forumId = req.params.id;
 
-    Forum.findOne({_id: forumId},{posts:1,_id: 1})
+    Forum.find({_id: forumId},{posts:1,_id: 1})
         .then((posts) => res.status(200).json(posts))
         .catch((error) => res.status(400).json(error));
 });
@@ -43,10 +43,10 @@ routes.post('/:id/newPost', function(req, res, next) {
  * Returns all the replies from a specific post
  * TODO: fix this
  */
-routes.get('/:id/replies', function(req,res) {
+routes.get('/forums/:id/replies', function(req,res) {
     const postId = req.params.id;
 
-    Forum.findOne({_id: postId})
+    Forum.find({_id: postId})
         .then((replies) => res.status(200).json(replies))
         .catch((error) => res.status(400).json(error));
 });
@@ -55,7 +55,7 @@ routes.get('/:id/replies', function(req,res) {
  * Add a new reply to a specific post
  * TODO: fix this
  */
-routes.post('/:id/newReply', function(req, res, next) {
+routes.post('/forums/:id/newReply', function(req, res, next) {
     const postID = req.params.id;
     const newReply = req.body;
 
