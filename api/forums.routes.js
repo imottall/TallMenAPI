@@ -47,11 +47,8 @@ routes.get('/:forumID/:postID/replies', function(req,res) {
     const forumId = req.params.forumID;
     const postId = req.params.postID;
 
-    Forum.find({_id: forumId})
-        .then(data.find({_id: postId})
-            .then(replies => res.status(200).json(replies))
-            .catch((error) => res.status(400).json(error));
-            )
+    Forum.find({_id: forumId},{posts: { $elemMatch: { _id: postId}}})
+        .then((replies) => res.status(200).json(replies))
         .catch((error) => res.status(400).json(error));
 });
 
