@@ -67,6 +67,6 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
         }
     )
             .then(reply => res.send(reply))
-            .catch((error) => res.status(400).json(error)))
+            .catch((error) => res.status(400).json(error))
 });
 module.exports = routes;
