@@ -59,10 +59,14 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
     const postId = req.params.postID;
     const newReply = req.body;
 
-    Forum.find({_id: forumId},{posts: { $elemMatch: { _id: postId}}})
-        .then(post => post.update({$push: {replies: newReply}})
+    Forum.find({ "_id": forumId, "posts._id": postId},
+        { "$push":
+            {"posts.$.replies":
+                    newReply
+            }
+        }
+    )
             .then(reply => res.send(reply))
             .catch((error) => res.status(400).json(error)))
-        .catch((error) => res.status(400).json(error))
 });
 module.exports = routes;
