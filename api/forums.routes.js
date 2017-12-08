@@ -43,10 +43,11 @@ routes.post('/:id/newPost', function(req, res, next) {
  * Returns all the replies from a specific post
  * TODO: fix this
  */
-routes.get('/forums/:id/replies', function(req,res) {
-    const postId = req.params.id;
+routes.get('/:forumID/:postID/replies', function(req,res) {
+    const forumId = req.params.forumID;
+    const postId = req.params.postID;
 
-    Forum.find({_id: postId})
+    Forum.find({_id: forumId},{ posts: {_id: {$in: postId}}})
         .then((replies) => res.status(200).json(replies))
         .catch((error) => res.status(400).json(error));
 });
