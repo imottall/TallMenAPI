@@ -10,7 +10,7 @@ const ReplySchema = new Schema({
         type: String,
         required: false
     },
-    replies: this
+    replies: [ this ]
 });
 
 const ForumSchema = new Schema({
