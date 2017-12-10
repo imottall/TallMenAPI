@@ -49,7 +49,7 @@ const Forum = mongoose.model('forum', ForumSchema);
 const forum = new Forum({
         topic: 'dummy', posts:
         [{title: 'Im bloody amazing', author: 'moi', message: "I'm amazing because, you know, that's just what I am", replies:
-            [{message: 'I agree', author: 'toi'},{message: 'totally you know', replies[{message: 'go away'},{message: '16 year old scrub'}]}]
+            [{message: 'I agree', author: 'toi'},{message: 'totally you know', replies: [{message: 'go away'},{message: '16 year old scrub'}]}]
         }]
 }).save();
 
