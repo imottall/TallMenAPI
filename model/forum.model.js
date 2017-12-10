@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const ReplySchema = new Schema({
     message: {
         type: String,
-        required: false
+        required: true
     },
     author: {
         type: String,
@@ -31,7 +31,7 @@ const ForumSchema = new Schema({
                 type: String,
                 required: false
             },
-            replies: [{ type: Schema.ObjectId, ref: ReplySchema }]
+            replies: [{ type: Schema.ObjectId, ref: ReplySchema, required: false }]
         }]
 });
 
