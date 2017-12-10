@@ -19,26 +19,10 @@ const ForumSchema = new Schema({
                 type: String,
                 required: false
             },
-            replies: [{
-                message: {
-                    type: String,
-                    required: true
-                },
-                author: {
-                    type: String,
-                    required: false
-                },
-                replies: [{
-                    message: {
-                        type: String,
-                        required: true
-                    },
-                    author: {
-                        type: String,
-                        required: false
-                    }
-                }]
-            }]
+            ForumSchema: {
+                message: Forum
+            },
+            replies: [Reply]
         }]
 });
 
