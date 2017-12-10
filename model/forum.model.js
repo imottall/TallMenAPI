@@ -1,6 +1,18 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const ReplySchema = new Schema({
+    message: {
+        type: String,
+        required: true
+    },
+    author: {
+        type: String,
+        required: false
+    },
+    replies: { type: Schema.ObjectId, ref: 'ReplySchema'}
+});
+
 const ForumSchema = new Schema({
         topic: {
             type: String,
@@ -22,7 +34,7 @@ const ForumSchema = new Schema({
             ForumSchema: {
                 message: Forum
             },
-            replies: Reply
+            replies: [{ type: Schema.ObjectId, ref: 'ReplySchema' }]
         }]
 });
 
