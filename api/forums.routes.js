@@ -63,8 +63,7 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
         { "$push":
             {"posts.$.replies": newReply
             }
-        }
-    )
+        })
             .then(reply => res.send(reply))
             .catch((error) => res.status(400).json(error))
 });
@@ -82,9 +81,8 @@ routes.post('/:forumID/:postID/:replyID/newReply', function(req, res, next) {
         { "$push":
             {"replies.$.replies": newReply
             }
-        }
-    )
-        .then(reply => res.send(reply))
-.catch((error) => res.status(400).json(error))
+        })
+        .then(reply => res.send('meow'))
+        .catch((error) => res.status(400).json(error))
 });
 module.exports = routes;
