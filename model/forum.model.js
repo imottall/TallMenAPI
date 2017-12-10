@@ -22,7 +22,7 @@ const ForumSchema = new Schema({
             ForumSchema: {
                 message: Forum
             },
-            replies: [Reply]
+            replies: Reply
         }]
 });
 

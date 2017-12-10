@@ -10,7 +10,7 @@ const ReplySchema = new Schema({
         type: String,
         required: false
     },
-    replies: [ReplySchema]
+    replies: Reply
 });
 
 const Reply = mongoose.model('reply', ReplySchema);
