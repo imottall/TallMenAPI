@@ -31,7 +31,8 @@ const ForumSchema = new Schema({
                 type: String,
                 required: false
             },
-            replies: [{ type: Schema.ObjectId, ref: 'ReplySchema', required: false }]
+            replies: [ ReplySchema ]
+            //replies: [{ type: Schema.ObjectId, ref: 'ReplySchema', required: false }]
         }]
 });
 
