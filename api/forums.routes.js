@@ -68,4 +68,23 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
             .then(reply => res.send(reply))
             .catch((error) => res.status(400).json(error))
 });
+
+/**
+ * Add a reply to a reply
+ */
+routes.post('/:forumID/:postID/:replyID/newReply', function(req, res, next) {
+    const forumId = req.params.forumID;
+    const postId = req.params.postID;
+    const replyId = req.params.replyID;
+    const newReply = req.body;
+
+    Forum.findOneAndUpdate({ "_id": forumId, "posts._id": postId, "replies._id": replyId},
+        { "$push":
+            {"replies.$.replies": newReply
+            }
+        }
+    )
+        .then(reply => res.send(reply))
+.catch((error) => res.status(400).json(error))
+});
 module.exports = routes;
