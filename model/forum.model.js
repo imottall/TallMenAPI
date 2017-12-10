@@ -10,7 +10,7 @@ const ReplySchema = new Schema({
         type: String,
         required: false
     },
-    replies: { type: Schema.ObjectId, ref: 'ReplySchema', required: false }
+    replies: this
 });
 
 const ForumSchema = new Schema({
@@ -32,7 +32,6 @@ const ForumSchema = new Schema({
                 required: false
             },
             replies: [ ReplySchema ]
-            //replies: [{ type: Schema.ObjectId, ref: 'ReplySchema', required: false }]
         }]
 });
 
