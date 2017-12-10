@@ -4,13 +4,13 @@ const Schema = mongoose.Schema;
 const ReplySchema = new Schema({
     message: {
         type: String,
-        required: true
+        required: false
     },
     author: {
         type: String,
         required: false
     },
-    replies: { type: Schema.ObjectId, ref: 'ReplySchema'}
+    replies: { type: Schema.ObjectId, ref: ReplySchema }
 });
 
 const ForumSchema = new Schema({
@@ -31,7 +31,7 @@ const ForumSchema = new Schema({
                 type: String,
                 required: false
             },
-            replies: [{ type: Schema.ObjectId, ref: 'ReplySchema' }]
+            replies: [{ type: Schema.ObjectId, ref: ReplySchema }]
         }]
 });
 
