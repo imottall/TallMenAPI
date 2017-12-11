@@ -14,10 +14,10 @@ routes.post('/login', function(req, res, next) {
 routes.post('/register', function(req, res) {
     const accountName = req.body.name;
     const accountPassword = req.body.password;
-
-    Account.insert({ name: accountName, password: accountPassword})
-        .then(response => res.send(response))
-        .catch(error => res.status(400).json(error))
+    const newAccount = new Account({
+        name: accountName,
+        password: accountPassword
+    }).save()
 });
 
 // Hiermee maken we onze router zichtbaar voor andere bestanden.
