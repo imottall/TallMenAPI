@@ -71,30 +71,17 @@ routes.get('/:forumID/:postID/replies', function(req,res) {
 /**
  * Returns all the replies for a specific ID
  */
-routes.get('/:forumID/:postID/:replyToID/getReplies', function(req,res) {
-    const forumId = req.params.forumID;
-    const postId = req.params.postID;
-    const replyToID = req.params.replyToID;
+routes.get('/forums/posts/:replyID/getReplies', function(req,res) {
+    const replyId = req.params.replyToID;
     Forum.aggregate(
-        {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies.replyToId" : replyToID}},
+        {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies._id" : replyId}},
         {"$project": {"posts.replies": 1}}, {"$group":{"_id":"$posts.replies"}})
         .then((forum) => res.status(200).json(forum))
         .catch((error) => res.status(400).json(error));
 });
 
 /**
- * Post a reply to another reply
+ * TODO: Reply to another reply
  */
-routes.post('/:forumID/:postID/:replyToID/newReply', function(req,res) {
-    const forumId = req.params.forumID;
-    const postId = req.params.postID;
-    const replyToID = req.params.replyToID;
-    const newReply = req.body;
-    Forum.findOneAndUpdate(
-        {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies.replyToId" : replyToID}},
-        {"$push": {"posts.replies": newReply}})
-        .then((forum) => res.status(200).json(forum))
-        .catch((error) => res.status(400).json(error));
-});
 
 module.exports = routes;
