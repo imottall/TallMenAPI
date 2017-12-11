@@ -18,6 +18,8 @@ routes.post('/register', function(req, res) {
         name: accountName,
         password: accountPassword
     }).save()
+        .then(response => res.status(200).send(response))
+        .catch((error) => res.status(400).json(error))
 });
 
 // Hiermee maken we onze router zichtbaar voor andere bestanden.
