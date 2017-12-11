@@ -14,7 +14,7 @@ routes.post('/login', function(req, res, next) {
 routes.post('/register', function(req, res) {
     const account = req.body;
 
-    Account.insert(account)
+    Account.post.insert(account)
         .then(response => res.send(response))
         .catch(error => res.status(400).json(error))
 });
