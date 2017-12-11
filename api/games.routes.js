@@ -8,10 +8,10 @@ var session = driver.session();
 
 routes.get('/games', function(req, res){
     session
-        .run("MATCH (g:Game) RETURN g.name AS name, g.genre AS genre, g.wallpaperImagePath AS wallpaperImagePath, g.coverImagePath AS coverImagePath")
+        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character)\n" + "RETURN g, c")
         .then(function(result) {
             result.records.forEach(function(record){
-                console.log(record.get('name'))
+                console.log(record)
             });
             res.status(200).json(result.records);
             session.close();
@@ -19,7 +19,7 @@ routes.get('/games', function(req, res){
         .catch(function(error){
             console.log("Error: " + error);
             res.status(418).json(error);
-        })
+        });
     session.close()
 });
 
