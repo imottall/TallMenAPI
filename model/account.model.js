@@ -14,7 +14,7 @@ const AccountSchema = new Schema({
 });
 
 
-const Account = mongoose.model('forum', ForumSchema);
+const Account = mongoose.model('account', AccountSchema);
 
 // Add a 'dummy' user (every time you require this file!)
 const account = new Account({

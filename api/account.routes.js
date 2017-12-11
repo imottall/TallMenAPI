@@ -3,8 +3,6 @@ var routes = express.Router();
 var mongodb = require('../config/mongo.db');
 var Account = require('../model/account.model');
 
-var auth = require('../auth/authentication');
-
 routes.post('/login', function(req, res, next) {
     const account = req.body;
 

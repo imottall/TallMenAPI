@@ -4,9 +4,9 @@
 var express = require('express');
 var bodyParser = require('body-parser')
 var logger = require('morgan');
-var userroutes_v1 = require('./api/user.routes.v1');
 var gamesroutes = require('./api/games.routes');
 var forumsroutes = require('./api/forums.routes');
+var accountsroutes = require('./api/account.routes');
 var config = require('./config/env/env');
 var app = express();
 
@@ -41,7 +41,7 @@ app.use(function (req, res, next) {
 
 app.use('', forumsroutes);
 app.use('', gamesroutes);
-app.use('', userroutes_v1);
+app.use('', accountsroutes);
 
 app.use(function (err, req, res, next) {
     // console.dir(err);
