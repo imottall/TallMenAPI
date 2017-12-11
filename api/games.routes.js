@@ -4,11 +4,11 @@ var neo4j = require('neo4j-driver').v1;
 var driver =
     neo4j.driver("bolt://hobby-npihgclecffdgbkehgonlial.dbs.graphenedb.com:24786",
         neo4j.auth.basic("admin", "b.gj4kU3HhDiFG.hhoE5SZipR0xvYXl"));
+var session = driver.session();
 
 routes.get('/games', function(req, res){
-    var session = driver.session();
     session
-        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) RETURN g, c")
+        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) RETURN g.name AS name, g.genre AS genre, g.wallpaperImagePath AS wallpaperImagePath, g.coverImagePath AS coverImagePath, c.name AS name, c.backstory AS backstory")
         .then(function(result) {
             result.records.forEach(function(record){
                 console.log(record)
