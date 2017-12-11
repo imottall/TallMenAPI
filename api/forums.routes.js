@@ -85,10 +85,11 @@ routes.get('/:forumID/:postID/:replyToID/getReplies', function(req,res) {
 /**
  * Post a reply to another reply
  */
-routes.get('/:forumID/:postID/:replyToID/getReplies', function(req,res) {
+routes.post('/:forumID/:postID/:replyToID/newReply', function(req,res) {
     const forumId = req.params.forumID;
     const postId = req.params.postID;
     const replyToID = req.params.replyToID;
+    const newReply = req.body;
     Forum.aggregate(
         {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies.replyToId" : replyToID}},
         {"$push": {"posts.replies": newReply}})
