@@ -12,9 +12,10 @@ routes.post('/login', function(req, res, next) {
 });
 
 routes.post('/register', function(req, res) {
-    const account = req.body;
+    const accountName = req.body.name;
+    const accountPassword = req.body.password;
 
-    Account.post.insert(account)
+    Account.insert({ name: accountName, password: accountPassword})
         .then(response => res.send(response))
         .catch(error => res.status(400).json(error))
 });
