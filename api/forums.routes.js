@@ -59,12 +59,12 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
 /**
  * Returns all the replies for a specific ID
  */
-routes.get('/:forumID/:postID/:replyToID', function(req,res) {
+routes.get('/:forumID/:postID/:replyToID/getReplies', function(req,res) {
     const forumId = req.params.forumID;
     const postId = req.params.postID;
     const replyToID = req.params.replyToID;
 
-    Forum.find({_id: forumId},{posts: { $elemMatch: { _id: postId}, replies: { $elemMatch: { replyToId: replyToID }}}})
+    Forum.find({_id: forumId},{posts: { $elemMatch: { _id: postId, replies: { $elemMatch: { replyToId: replyToID }}}}})
         .then((forum) => res.status(200).json(forum))
         .catch((error) => res.status(400).json(error));
 });
