@@ -82,4 +82,18 @@ routes.get('/:forumID/:postID/:replyToID/getReplies', function(req,res) {
         .catch((error) => res.status(400).json(error));
 });
 
+/**
+ * Post a reply to another reply
+ */
+routes.get('/:forumID/:postID/:replyToID/getReplies', function(req,res) {
+    const forumId = req.params.forumID;
+    const postId = req.params.postID;
+    const replyToID = req.params.replyToID;
+    Forum.aggregate(
+        {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies.replyToId" : replyToID}},
+        {"$push": {"posts.replies": newReply}})
+        .then((forum) => res.status(200).json(forum))
+        .catch((error) => res.status(400).json(error));
+});
+
 module.exports = routes;
