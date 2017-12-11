@@ -8,7 +8,7 @@ var session = driver.session();
 
 routes.get('/games', function(req, res){
     session
-        .run("MATCH (g:Game) RETURN DISTINCT {name: g.name, genre: g.genre, backstory: g.backstory, coverImagePath: g.coverImagePath, wallpaperImagePath: g.walwallPaperImagePath} AS game")
+        .run("MATCH (g:Game) RETURN DISTINCT {name: g.name, genre: g.genre, backstory: g.backstory, coverImagePath: g.coverImagePath, wallpaperImagePath: g.walwallPaperImagePath}")
         .then(function(result) {
             result.records.forEach(function(record){
                 console.log(record)
@@ -26,7 +26,7 @@ routes.get('/games', function(req, res){
 routes.get('/:gameName/characters', function(req, res){
     const gameName = req.params.gameName;
     session
-        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) WHERE g.name = '" + gameName + "'RETURN {name: c.name, backstory: c.backstory, portraitImagePath: c.portraitImagePath} AS character")
+        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) WHERE g.name = '" + gameName + "'RETURN {name: c.name, backstory: c.backstory, portraitImagePath: c.portraitImagePath")
         .then(function(result) {
             result.records.forEach(function(record){
                 console.log(record)
