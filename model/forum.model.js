@@ -14,33 +14,36 @@ const ReplySchema = new Schema({
 });
 
 const ForumSchema = new Schema({
-        topic: {
+    topic: {
+        type: String,
+        required: true
+    },
+    posts: [{
+        title: {
             type: String,
             required: true
         },
-        posts: [{
-            title: {
-                type: String,
-                required: true
-            },
-            author: {
-                type: String,
-                required: false
-            },
-            message: {
-                type: String,
-                required: false
-            },
-            replies: [ ReplySchema ]
-        }]
+        author: {
+            type: String,
+            required: false
+        },
+        message: {
+            type: String,
+            required: false
+        },
+        replies: [ ReplySchema ]
+    }]
 });
+
 
 const Forum = mongoose.model('forum', ForumSchema);
 
+// Add a 'dummy' user (every time you require this file!)
 const forum = new Forum({
-        topic: 'dummy', posts:
+    topic: 'dummy', posts:
         [{title: 'Im bloody amazing', author: 'moi', message: "I'm amazing because, you know, that's just what I am",
-            replies: [{message: 'meow', replies: [{message: 'woem'}, {message: 'WOWWW'}]}]}]
+            replies: [{message: 'meow',replies: [{message: 'toi'}]}]
+        }]
 }).save();
 
 module.exports = Forum;

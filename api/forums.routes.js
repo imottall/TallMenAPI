@@ -40,6 +40,18 @@ routes.post('/:id/newPost', function(req, res, next) {
 });
 
 /**
+ * Returns all the replies from a specific post
+ */
+routes.get('/:forumID/:postID/replies', function(req,res) {
+    const forumId = req.params.forumID;
+    const postId = req.params.postID;
+
+    Forum.find({_id: forumId},{posts: { $elemMatch: { _id: postId}}})
+        .then((forum) => res.status(200).json(forum))
+.catch((error) => res.status(400).json(error));
+});
+
+/**
  * Add a new reply to a specific post
  */
 routes.post('/:forumID/:postID/newReply', function(req, res, next) {
@@ -52,20 +64,8 @@ routes.post('/:forumID/:postID/newReply', function(req, res, next) {
             {"posts.$.replies": newReply
             }
         })
-            .then(reply => res.send(reply))
-            .catch((error) => res.status(400).json(error))
-});
-
-/**
- * Returns all the replies from a specific post
- */
-routes.get('/:forumID/:postID/replies', function(req,res) {
-    const forumId = req.params.forumID;
-    const postId = req.params.postID;
-
-    Forum.find({_id: forumId},{posts: { $elemMatch: { _id: postId}}})
-        .then((forum) => res.status(200).json(forum))
-.catch((error) => res.status(400).json(error));
+        .then(reply => res.send(reply))
+.catch((error) => res.status(400).json(error))
 });
 
 /**
@@ -79,9 +79,10 @@ routes.post('/:forumID/:postID/:replyID/newReply', function(req, res, next) {
 
     Forum.findOneAndUpdate({ "_id": forumId, "posts._id": postId, "replies._id": replyId},
         { "$push":
-            {"posts.$.replies.$.replies": newReply
+            {"replies.$.replies": newReply
             }
-        })
+        }
+    )
         .then(reply => res.send(reply))
         .catch((error) => res.status(400).json(error))
 });
