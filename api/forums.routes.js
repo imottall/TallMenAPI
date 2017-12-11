@@ -64,7 +64,8 @@ routes.get('/:forumID/:postID/:replyToID/getReplies', function(req,res) {
     const postId = req.params.postID;
     const replyToID = req.params.replyToID;
     Forum.aggregate(
-        {"$unwind": "$Forum"}, {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies.replyToId" : replyToID}})
+        {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies.replyToId" : replyToID}},
+        {"$project": {"posts.replies": 1}}, {"$group":{"_id":"$posts.replies"}})
         .then((forum) => res.status(200).json(forum))
         .catch((error) => res.status(400).json(error));
 });
