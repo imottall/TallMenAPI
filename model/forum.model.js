@@ -6,13 +6,13 @@ const ReplySchema = new Schema({
         type: String,
         required: true
     },
+    author: {
+    type: String,
+        required: false
+    },
     replyToId: {
         type: String,
         required: true
-    },
-    author: {
-        type: String,
-        required: false
     }
 });
 
