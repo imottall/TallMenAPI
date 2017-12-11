@@ -8,7 +8,7 @@ var session = driver.session();
 
 routes.get('/games', function(req, res){
     session
-        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character)\n" + "RETURN g, c")
+        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) RETURN g, c")
         .then(function(result) {
             result.records.forEach(function(record){
                 console.log(record)
