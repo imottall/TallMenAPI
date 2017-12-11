@@ -90,7 +90,7 @@ routes.post('/:forumID/:postID/:replyToID/newReply', function(req,res) {
     const postId = req.params.postID;
     const replyToID = req.params.replyToID;
     const newReply = req.body;
-    Forum.aggregate(
+    Forum.findOneAndUpdate(
         {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$match": {"posts.replies.replyToId" : replyToID}},
         {"$push": {"posts.replies": newReply}})
         .then((forum) => res.status(200).json(forum))
