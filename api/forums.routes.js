@@ -69,6 +69,24 @@ routes.get('/:forumID/:postID/replies', function(req,res) {
 });
 
 /**
+ * Add a reply to a reply
+ */
+routes.post('/:forumID/:postID/:replyID/newReply', function(req, res, next) {
+    const forumId = req.params.forumID;
+    const postId = req.params.postID;
+    const replyId = req.params.replyID;
+    const newReply = req.body;
+
+    Forum.findOneAndUpdate({ "_id": forumId, "posts._id": postId, "replies._id": replyId},
+        { "$push":
+            {"posts.$.replies.$.replies": newReply
+            }
+        })
+        .then(reply => res.send(reply))
+        .catch((error) => res.status(400).json(error))
+});
+
+/**
  * Returns all the replies for a specific ID
  */
 routes.get('/forums/posts/:replyID/getReplies', function(req,res) {
