@@ -8,7 +8,25 @@ var session = driver.session();
 
 routes.get('/games', function(req, res){
     session
-        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) RETURN g.name AS name, g.genre AS genre, g.wallpaperImagePath AS wallpaperImagePath, g.coverImagePath AS coverImagePath, c.name AS name, c.backstory AS backstory")
+        .run("MATCH (g:Game) RETURN DISTINCT {name: g.name, genre: g.genre, backstory: g.backstory, coverImagePath: g.coverImagePath, wallpaperImagePath: g.walwallPaperImagePath} AS game")
+        .then(function(result) {
+            result.records.forEach(function(record){
+                console.log(record)
+            });
+            res.status(200).json(result.records);
+            session.close();
+        })
+        .catch(function(error){
+            console.log("Error: " + error);
+            res.status(418).json(error);
+        });
+    session.close()
+});
+
+routes.get('/:gameName/characters', function(req, res){
+    const gameName = req.params.gameName;
+    session
+        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) WHERE g.name = '" + gameName + "'RETURN {name: c.name, backstory: c.backstory, portraitImagePath: c.portraitImagePath} AS character")
         .then(function(result) {
             result.records.forEach(function(record){
                 console.log(record)
