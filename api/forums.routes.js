@@ -4,6 +4,7 @@ var mongodb = require('../config/mongo.db');
 var Forum = require('../model/forum.model');
 
 /**
+ * TODO: CHANGE EVERYTHING TO mongodb.collections('blablablaba') see account.routes
  * Returns all the forums
  */
 routes.get('/forums', function(req, res) {
