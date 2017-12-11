@@ -8,7 +8,7 @@ var session = driver.session();
 
 routes.get('/games', function(req, res){
     session
-        .run("MATCH (g:Game) RETURN DISTINCT {name: g.name, genre: g.genre, backstory: g.backstory, coverImagePath: g.coverImagePath, wallpaperImagePath: g.walwallPaperImagePath}")
+        .run("MATCH (g:Game) RETURN DISTINCT {name: g.name, genre: g.genre, coverImagePath: g.coverImagePath, wallpaperImagePath: g.wallpaperImagePath}")
         .then(function(result) {
             result.records.forEach(function(record){
                 console.log(record)
