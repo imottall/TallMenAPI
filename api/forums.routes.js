@@ -89,6 +89,17 @@ routes.post('/:forumID/:postID/:replyID/newReply', function(req, res, next) {
 });
 
 /**
+ * Delete a specific reply
+ */
+routes.get('/forums/posts/:replyID/delete', function(req,res) {
+    const replyId = req.params.replyToID;
+    Forum.aggregate(
+        {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$pull": {"posts.replies._id" : replyId}}
+        .then((forum) => res.status(200).json(forum))
+        .catch((error) => res.status(400).json(error));
+});
+
+/**
  * Returns all the replies for a specific ID
  */
 routes.get('/forums/posts/:replyID/getReplies', function(req,res) {
