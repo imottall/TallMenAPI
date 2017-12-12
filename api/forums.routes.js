@@ -96,7 +96,7 @@ routes.get('/forums/posts/:replyID/delete', function(req,res) {
     Forum.aggregate(
         {"$unwind": "$posts"}, {"$unwind": "$posts.replies"}, {"$pull": {"posts.replies._id" : replyId}}
         .then((forum) => res.status(200).json(forum))
-        .catch((error) => res.status(400).json(error));
+        .catch((error) => res.status(400).json(error)));
 });
 
 /**
