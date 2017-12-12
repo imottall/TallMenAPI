@@ -44,7 +44,7 @@ const Post = mongoose.model('post', PostSchema);
 // Add a 'dummy' user (every time you require this file!)
 const forum = new Forum({
     topic: 'dummy', posts:
-        [{title: 'Im bloody amazing', author: 'moi', message: "I'm amazing because, you know, that's just what I am",
+        [{title: 'This is a dummy title', author: 'moi', message: "welp",
             replies: [{message: 'meow' }]
         }]
 }).save();
