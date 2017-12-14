@@ -32,11 +32,11 @@ routes.get('/:id/posts', function(req,res) {
 routes.post('/forum/newPost', function(req, res, next) {
     const newPost = req.body;
 
-    Posts.update(
-        { $push: { posts: newPost }}
-    )
-    .then(post => res.send(post))
-    .catch((error) => res.status(400).json(error))
+    new Posts(
+        newPost
+    ).save()
+        .then(response => res.status(200).send(response))
+        .catch((error) => res.status(400).json(error))
 });
 
 /**
