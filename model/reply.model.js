@@ -12,7 +12,7 @@ const ReplySchema = new Schema({
     },
     replyToAuthorId: {
         type: String,
-        required: true
+        required: false
     },
     postId: {
         type: String,
