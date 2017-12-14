@@ -22,5 +22,4 @@ routes.post('/register', function(req, res) {
         .catch((error) => res.status(400).json(error))
 });
 
-// Hiermee maken we onze router zichtbaar voor andere bestanden.
 module.exports = routes;

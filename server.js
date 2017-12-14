@@ -2,7 +2,7 @@
 // server.js
 //
 var express = require('express');
-var bodyParser = require('body-parser')
+var bodyParser = require('body-parser');
 var logger = require('morgan');
 var gamesroutes = require('./api/games.routes');
 var forumsroutes = require('./api/forums.routes');
