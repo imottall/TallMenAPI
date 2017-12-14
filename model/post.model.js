@@ -14,7 +14,7 @@ const PostSchema = new Schema({
         type: String,
         required: false
     },
-    ForumId: {
+    forumId: {
         type: String,
         required: true
     }

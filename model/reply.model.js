@@ -10,7 +10,7 @@ const ReplySchema = new Schema({
         type: String,
         required: false
     },
-    replyToId: {
+    replyToAuthorId: {
         type: String,
         required: true
     },

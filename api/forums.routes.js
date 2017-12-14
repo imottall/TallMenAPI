@@ -21,7 +21,7 @@ routes.get('/forums', function(req, res) {
 routes.get('/:id/posts', function(req,res) {
     const forumId = req.params.id;
 
-    Posts.find({ForumId: forumId},{posts:1,_id: 1})
+    Posts.find({ForumId: forumId})
         .then((posts) => res.status(200).json(posts))
         .catch((error) => res.status(400).json(error));
 });
@@ -29,7 +29,7 @@ routes.get('/:id/posts', function(req,res) {
 /**
  * Add a new post to a specific forum
  */
-routes.post('/forum/newPost', function(req, res, next) {
+routes.post('/forums/newPost', function(req, res, next) {
     const newPost = req.body;
 
     new Posts(
@@ -42,7 +42,7 @@ routes.post('/forum/newPost', function(req, res, next) {
 /**
  * Returns all the replies from a specific post
  */
-routes.get('/forum/:postID/replies', function(req,res) {
+routes.get('/forums/:postID/replies', function(req,res) {
     const postId = req.params.postID;
 
     Replies.find({postId: postId})
@@ -53,7 +53,7 @@ routes.get('/forum/:postID/replies', function(req,res) {
 /**
  * Add a new reply to a specific post
  */
-routes.post('/forum/post/newReply', function(req, res, next) {
+routes.post('/forums/posts/newReply', function(req, res, next) {
     const newReply = req.body;
 
     new Replies(
@@ -66,11 +66,23 @@ routes.post('/forum/post/newReply', function(req, res, next) {
 /**
  * Delete a specific reply
  */
-routes.get('/forums/posts/:replyID/delete', function(req,res) {
-    const replyId = req.params.replyToID;
+routes.delete('/forums/posts/:replyID/delete', function(req,res) {
+    const replyId = req.params.replyID;
     Replies.remove({ _id: replyId})
         .then((forum) => res.status(200).json(forum))
         .catch((error) => res.status(400).json(error));
+});
+
+/**
+ * Update specific reply
+ */
+routes.post('/forums/posts/:replyID/update', function(req,res){
+    const replyId = req.params.replyID;
+    const updatedReply = req.body;
+
+    Replies.findOneAndUpdate({_id: replyId}, updatedReply)
+        .then(response => res.status(200).send(response))
+        .catch((error) => res.status(400).json(error))
 });
 
 /**
