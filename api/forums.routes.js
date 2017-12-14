@@ -27,6 +27,17 @@ routes.get('/:id/posts', function(req,res) {
 });
 
 /**
+ * Returns one specific post
+ */
+routes.get('/forums/:postID', function(req,res) {
+    const postId = req.params.postID;
+
+    Posts.find({_id: postId})
+        .then((posts) => res.status(200).json(posts))
+        .catch((error) => res.status(400).json(error));
+});
+
+/**
  * Add a new post to a specific forum
  */
 routes.post('/forums/newPost', function(req, res, next) {
