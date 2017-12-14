@@ -21,7 +21,7 @@ routes.get('/forums', function(req, res) {
 routes.get('/:id/posts', function(req,res) {
     const forumId = req.params.id;
 
-    Posts.find({ForumId: forumId})
+    Posts.find({forumId: forumId})
         .then((posts) => res.status(200).json(posts))
         .catch((error) => res.status(400).json(error));
 });
