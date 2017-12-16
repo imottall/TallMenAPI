@@ -2,8 +2,8 @@ var express = require('express');
 var routes = express.Router();
 var mongodb = require('../config/mongo.db');
 var Forums = require('../model/forum.model');
-var Posts = require('../model/post.model');
-var Replies = require('../model/reply.model');
+var Posts = require('../model/forum.model');
+var Replies = require('../model/forum.model');
 
 /**********
  * FORUMS *
