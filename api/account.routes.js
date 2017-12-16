@@ -33,7 +33,7 @@ routes.post('/accounts', function(req, res) {
 //GetAccount
 routes.get('/accounts/:accountId', function(req, res) {
     res.contentType('application/json');
-    const forumId = req.params.forumId;
+    const accountId = req.params.accountId;
 
     Accounts.findOne({_id: accountId})
         .populate('posts')
