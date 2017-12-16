@@ -65,7 +65,7 @@ routes.get('/:forumId/posts', function(req, res) {
         .catch((error) => res.status(401).json(error));
 });
 
-//NEW WITH AUTHOR
+//NEW
 routes.post('/:forumId/posts', function(req, res, next) {
     const forumId = req.params.forumId;
     newPost = new Posts(req.body);
@@ -97,9 +97,9 @@ routes.delete('/posts/:postId', function(req, res, next) {
         .catch((error) => res.status(400).json(error));
 });
 
-/*********
+/***********
  * REPLIES *
- *********/
+ ***********/
 
 //GET
 routes.get('/:postId/replies', function(req, res) {
@@ -110,18 +110,6 @@ routes.get('/:postId/replies', function(req, res) {
         .populate('replies')
         .then((response) => res.status(200).json(response))
         .catch((error) => res.status(401).json(error));
-});
-
-//NEW
-routes.post('/:postId/replies', function(req, res, next) {
-    const postId = req.params.postId;
-    newReply = new Replies(req.body);
-
-    Promise.all([
-        new Replies(newReply).save(),
-        Posts.findOneAndUpdate({_id: postId},{ $push: { replies: newReply }})
-    ])  .then(response => {res.status(200).send(response)})
-.catch((error) => res.status(400).json(error))
 });
 
 //NEW WITH AUTHOR
