@@ -13,12 +13,6 @@ const AccountSchema = new Schema({
     }
 });
 
-
 const Account = mongoose.model('account', AccountSchema);
-
-const account = new Account({
-    name: 'Admin',
-    password: 'wachtwoord'
-}).save();
 
 module.exports = Account;
