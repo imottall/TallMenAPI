@@ -10,7 +10,9 @@ const AccountSchema = new Schema({
     password: {
         type: String,
         required: true
-    }
+    },
+    replies: { type: Schema.Types.ObjectId, ref: 'reply' },
+    posts: { type: Schema.Types.ObjectId, ref: 'post' }
 });
 
 const Account = mongoose.model('account', AccountSchema);

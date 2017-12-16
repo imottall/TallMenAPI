@@ -4,6 +4,7 @@ var mongodb = require('../config/mongo.db');
 var Forums = require('../model/forum.model');
 var Posts = require('../model/post.model');
 var Replies = require('../model/reply.model');
+var Accounts = require('../model/account.model');
 
 /**********
  * FORUMS *
@@ -76,6 +77,20 @@ routes.post('/:forumId/posts', function(req, res, next) {
         .catch((error) => res.status(400).json(error))
 });
 
+//NEW WITH AUTHOR
+routes.post('/:forumId/posts/:authorId', function(req, res, next) {
+    const forumId = req.params.forumId;
+    const authorId = req.params.authorId;
+    newPost = new Posts(req.body);
+
+    Promise.all([
+        new Posts(newPost).save(),
+        Forums.findOneAndUpdate({_id: forumId},{ $push: { posts: newPost }}),
+        Accounts.findOneAndUpdate({_id: authorId},{ $push: { posts: newPost }})
+    ])  .then(response => {res.status(200).send(response)})
+.catch((error) => res.status(400).json(error))
+});
+
 //UPDATE
 routes.post('/posts/:postId', function(req,res){
     const postId = req.params.postId;
@@ -118,6 +133,20 @@ routes.post('/:postId/replies', function(req, res, next) {
     Promise.all([
         new Replies(newReply).save(),
         Posts.findOneAndUpdate({_id: postId},{ $push: { replies: newReply }})
+    ])  .then(response => {res.status(200).send(response)})
+.catch((error) => res.status(400).json(error))
+});
+
+//NEW WITH AUTHOR
+routes.post('/:postId/replies/:authorId', function(req, res, next) {
+    const postId = req.params.postId;
+    const authorId = req.params.authorId;
+    newReply = new Replies(req.body);
+
+    Promise.all([
+        new Replies(newReply).save(),
+        Posts.findOneAndUpdate({_id: postId},{ $push: { replies: newReply }}),
+        Accounts.findOneAndUpdate({_id: authorId}, {$push: {replies: newReply}})
     ])  .then(response => {res.status(200).send(response)})
         .catch((error) => res.status(400).json(error))
 });
