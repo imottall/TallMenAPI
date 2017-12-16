@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const Post = require('post.model');
-
 const ForumSchema = new Schema({
     topic: {
         type: String,
