@@ -10,9 +10,9 @@ routes.post('/login', function(req, res, next) {
     Account.findOne({name: account.name})
         .then(response => {
             if(auth.verify(account.password, response.password)){
-                res.status(200).json(response);
+                res.status(200).json(true);
             } else {
-                res.status(418).json(response);
+                res.status(418).json(false);
             }})
         .catch((error) => res.status(400).json(error))
 });

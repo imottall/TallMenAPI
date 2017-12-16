@@ -6,8 +6,6 @@ function encode(password){
 }
 
 function verify(password, hashedPassword){
-    console.log(password, hashedPassword);
-    console.log(passwordHash.verify(password, hashedPassword));
     return passwordHash.verify(password, hashedPassword)
 }
 
