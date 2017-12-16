@@ -63,11 +63,13 @@ routes.get('/:forumId/posts', function(req, res) {
 
 //NEW
 routes.post('/:forumId/posts', function(req, res, next) {
-    const newPost = new Posts(req.body);
     const forumId = req.params.forumId;
-    Promise.all(new Posts(newPost).save(),
-        Forums.findOneAndUpdate({_id: forumId},{ $push: { posts: newPost }}))
-        .then(response => {res.status(200).send(response)})
+    newPost = new Posts(req.body);
+
+    Promise.all([
+        new Posts(newPost).save(),
+        Forums.findOneAndUpdate({_id: forumId},{ $push: { posts: newPost }})
+    ])  .then(response => {res.status(200).send(response)})
         .catch((error) => res.status(400).json(error))
 });
 
