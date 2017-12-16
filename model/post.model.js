@@ -10,8 +10,8 @@ const PostSchema = new Schema({
         type: String,
         required: false
     },
-    account: { type: Schema.Types.ObjectId, ref: 'Account' },
-    replies: [{ type: Schema.Types.ObjectId, ref: 'Reply' }]
+    account: { type: Schema.Types.ObjectId, ref: 'account' },
+    replies: [{ type: Schema.Types.ObjectId, ref: 'reply' }]
 });
 
 const Post = mongoose.model('post', PostSchema);

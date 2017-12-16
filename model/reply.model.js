@@ -6,8 +6,8 @@ const ReplySchema = new Schema({
         type: String,
         required: true
     },
-    account: { type: Schema.Types.ObjectId, ref: 'Account' },
-    replyToAuthor: { type: Schema.Types.ObjectId, ref: 'Account' }
+    account: { type: Schema.Types.ObjectId, ref: 'account' },
+    replyToAuthor: { type: Schema.Types.ObjectId, ref: 'account' }
 });
 
 const Reply = mongoose.model('reply', ReplySchema);
