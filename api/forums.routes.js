@@ -13,7 +13,7 @@ var Replies = require('../model/reply.model');
 routes.get('/forums', function(req, res) {
     res.contentType('application/json');
     Forums.find({})
-        .populate('posts')
+        .populate({ path:'posts', model:'Post'})
         .then((response) => res.status(200).json(response))
         .catch((error) => res.status(401).json(error));
 });
