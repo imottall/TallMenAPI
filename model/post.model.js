@@ -1,23 +1,20 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+const Account = require('./account.model');
+const Reply = require('./reply.model');
+
 const PostSchema = new Schema({
     title: {
         type: String,
         required: true
     },
-    authorId: {
-        type: String,
-        required: false
-    },
     message: {
         type: String,
         required: false
     },
-    forumId: {
-        type: String,
-        required: true
-    }
+    account: { type: Schema.Types.ObjectId, ref: 'Account' },
+    replies: [{ type: Schema.Types.ObjectId, ref: 'Reply' }]
 });
 
 const Post = mongoose.model('post', PostSchema);
