@@ -15,7 +15,7 @@ var Replies = require('../model/reply.model');
 routes.get('/forums', function(req, res) {
     res.contentType('application/json');
     Forums.find({})
-        .then((response) => {res.status(200).json(response); console.log('blieb: ', response.posts[0].title)})
+        .then((response) => res.status(200).json(response))
         .catch((error) => res.status(401).json(error));
 });
 
@@ -58,7 +58,7 @@ routes.get('/:forumId/posts', function(req, res) {
     const forumId = req.params.forumId;
     Forums.findOne({_id: forumId})
         .populate('posts')
-        .then((response) => {res.status(200).json(response); console.log('blieb: ', response.posts[0].title)})
+        .then((response) => res.status(200).json(response))
         .catch((error) => res.status(401).json(error));
 });
 
