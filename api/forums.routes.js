@@ -138,15 +138,16 @@ routes.post('/:postId/replies', function(req, res, next) {
 });
 
 //NEW WITH AUTHOR
-routes.post('/:postId/replies/:authorId', function(req, res, next) {
+routes.post('/:postId/replies', function(req, res, next) {
     const postId = req.params.postId;
-    const authorId = req.params.authorId;
     newReply = new Replies(req.body);
 
     Promise.all([
         new Replies(newReply).save(),
         Posts.findOneAndUpdate({_id: postId},{ $push: { replies: newReply }}),
-        Accounts.findOneAndUpdate({_id: authorId}, {$push: {replies: newReply}})
+        console.log('YHEELLLLOOOO THERE'),
+        Accounts.findOneAndUpdate({_id: newReply.account}, {$push: {replies: newReply}}),
+        console.log('mew')
     ])  .then(response => {res.status(200).send(response)})
         .catch((error) => res.status(400).json(error))
 });
