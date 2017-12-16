@@ -5,13 +5,13 @@ var Accounts = require('../model/account.model');
 var auth = require('../authentication/authentication');
 
 //Login
-routes.post('/login', function(req, res, next) {
+routes.post('/accounts/login', function(req, res, next) {
     const account = req.body;
 
     Accounts.findOne({name: account.name})
         .then(response => {
             if(auth.verify(account.password, response.password)){
-                res.status(200).json(true);
+                res.status(200).json(response);
             } else {
                 res.status(418).json(false);
             }})
@@ -19,7 +19,7 @@ routes.post('/login', function(req, res, next) {
 });
 
 //Register
-routes.post('/register', function(req, res) {
+routes.post('/accounts', function(req, res) {
     const accountName = req.body.name;
     const accountPassword = auth.encode(req.body.password);
     const newAccount = new Accounts({
