@@ -11,8 +11,8 @@ const AccountSchema = new Schema({
         type: String,
         required: true
     },
-    replies: { type: Schema.Types.ObjectId, ref: 'reply' },
-    posts: { type: Schema.Types.ObjectId, ref: 'post' }
+    replies: [{ type: Schema.Types.ObjectId, ref: 'reply' }],
+    posts: [{ type: Schema.Types.ObjectId, ref: 'post' }]
 });
 
 const Account = mongoose.model('account', AccountSchema);

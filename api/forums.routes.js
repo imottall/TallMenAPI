@@ -65,28 +65,15 @@ routes.get('/:forumId/posts', function(req, res) {
         .catch((error) => res.status(401).json(error));
 });
 
-//NEW
+//NEW WITH AUTHOR
 routes.post('/:forumId/posts', function(req, res, next) {
     const forumId = req.params.forumId;
     newPost = new Posts(req.body);
 
     Promise.all([
         new Posts(newPost).save(),
-        Forums.findOneAndUpdate({_id: forumId},{ $push: { posts: newPost }})
-    ])  .then(response => {res.status(200).send(response)})
-        .catch((error) => res.status(400).json(error))
-});
-
-//NEW WITH AUTHOR
-routes.post('/:forumId/posts/:authorId', function(req, res, next) {
-    const forumId = req.params.forumId;
-    const authorId = req.params.authorId;
-    newPost = new Posts(req.body);
-
-    Promise.all([
-        new Posts(newPost).save(),
         Forums.findOneAndUpdate({_id: forumId},{ $push: { posts: newPost }}),
-        Accounts.findOneAndUpdate({_id: authorId},{ $push: { posts: newPost }})
+        Accounts.findOneAndUpdate({_id: newPost.account},{ $push: { posts: newPost }})
     ])  .then(response => {res.status(200).send(response)})
 .catch((error) => res.status(400).json(error))
 });
@@ -145,9 +132,7 @@ routes.post('/:postId/replies', function(req, res, next) {
     Promise.all([
         new Replies(newReply).save(),
         Posts.findOneAndUpdate({_id: postId},{ $push: { replies: newReply }}),
-        console.log('YHEELLLLOOOO THERE'),
-        Accounts.findOneAndUpdate({_id: newReply.account}, {$push: {replies: newReply}}),
-        console.log('mew')
+        Accounts.findOneAndUpdate({_id: newReply.account}, {$push: {replies: newReply}})
     ])  .then(response => {res.status(200).send(response)})
         .catch((error) => res.status(400).json(error))
 });
