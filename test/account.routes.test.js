@@ -30,6 +30,16 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
             })
     });
 
+    it('cant create a account with a username that already exists', function (done) {
+        chai.request(server)
+            .post('/accounts/register')
+            .send(testAccount)
+            .end(function(err, res) {
+                res.should.have.status(400);
+                done();
+            })
+    });
+
     it('cant create a account without username', function (done) {
         var testAccount = {
             name: null,
