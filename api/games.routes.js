@@ -10,7 +10,7 @@ var driver = require('../config/neo.db');
 routes.get('/games/get', function(req, res){
     var session = driver.session();
     session
-        .run("MATCH (g:Game) RETURN DISTINCT {name: g.name, genre: g.genre, coverImagePath: g.coverImagePath, wallpaperImagePath: g.wallpaperImagePath, forumId: g.forumId} AS game")
+        .run("MATCH (g:Game) RETURN DISTINCT {name: g.name, genre: g.genre, coverImagePath: g.coverImagePath, wallpaperImagePath: g.wallpaperImagePath} AS game")
         .then(function(result) {
             res.status(200).json(result.records);
             session.close();
@@ -30,8 +30,7 @@ routes.post('/games/:gameName/update', function(req, res){
         .run("MATCH (g:Game{name:'" + gameName + "'}) SET g.name = '" + updatedGame.name +
             "' SET g.genre = '" + updatedGame.genre +
             "' SET g.wallpaperImagePath = '" + updatedGame.wallpaperImagePath +
-            "' SET g.coverImagePath = '" + updatedGame.coverImagePath +
-            "' SET g.forumId = '" + updatedGame.forumId + "';")
+            "' SET g.coverImagePath = '" + updatedGame.coverImagePath + "';")
         .then(function(result) {
             res.status(201).json(result.records);
         })
@@ -49,8 +48,7 @@ routes.post('/games/create', function(req, res){
         .run("CREATE (g:Game{name:'" + newGame.name +
             "', genre:'" + newGame.genre +
             "', wallpaperImagePath:'" + newGame.wallpaperImagePath +
-            "', coverImagePath:'" + newGame.coverImagePath +
-            "', forumId:'" + newGame.forumId + "'});")
+            "', coverImagePath:'" + newGame.coverImagePath + "'});")
         .then(function(result) {
             res.status(201).json(result.records);
         })
