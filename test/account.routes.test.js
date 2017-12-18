@@ -15,8 +15,6 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
         password: "test"
     };
 
-    mongoose.connection.collections.accounts.drop();
-
     it('can create a account', function (done) {
         chai.request(server)
             .post('/accounts/register')
@@ -35,6 +33,7 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
             .post('/accounts/register')
             .send(testAccount)
             .end(function(err, res) {
+                console.log(res.body);
                 res.should.have.status(400);
                 done();
             })
@@ -144,6 +143,35 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
             })
     });
 
+    it('can update a account', function (done) {
+        testAccount = {
+            name: "updated",
+            password: "updated"
+        };
+        chai.request(server)
+            .post('/accounts/' + _id + '/update')
+            .send(testAccount)
+            .end(function(err, res) {
+                console.log(res.body);
+                res.should.have.status(201);
+                res.body.should.be.an('object');
+                done();
+            })
+    });
+
+    it('has updated a account', function (done) {
+        chai.request(server)
+            .get('/accounts/' + _id + '/get')
+            .end(function(err, res) {
+                console.log(res.body);
+                res.should.have.status(200);
+                res.body.should.be.an('object');
+                res.body.should.have.property('name').that.is.a('string');
+                res.body.name.should.equal(testAccount.name);
+                done();
+            })
+    });
+
     it('can delete a account', function (done) {
         chai.request(server)
             .delete('/accounts/' + _id + '/delete')
@@ -151,7 +179,6 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
                 res.should.have.status(204);
                 done();
             })
-
     });
 
     mongoose.connection.collections.accounts.drop();

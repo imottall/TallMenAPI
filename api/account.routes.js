@@ -26,7 +26,7 @@ routes.post('/accounts/register', function(req, res) {
         name: accountName,
         password: accountPassword
     }).save()
-        .then(response => res.status(201).json(response))
+        .then(response => {res.status(201).json(response); console.log(response)})
         .catch((error) => {res.status(400).json(error)})
 });
 
@@ -41,6 +41,22 @@ routes.get('/accounts/:accountId/get', function(req, res) {
         .then((response) => res.status(200).json(response))
         .catch((error) => res.status(400).json(error));
 });
+
+//Update
+routes.post('/accounts/:accountId/update', function(req, res) {
+    const accountId = req.params.accountId;
+    const accountName = req.body.name;
+    const accountPassword = auth.encode(req.body.password);
+    const newAccount = {
+        name: accountName,
+        password: accountPassword
+    };
+
+    Accounts.findOneAndUpdate({_id: accountId}, newAccount)
+        .then(response => res.status(201).json(response))
+        .catch((error) => res.status(400).json(error))
+});
+
 
 //Delete
 routes.delete('/accounts/:accountId/delete', function(req, res) {
