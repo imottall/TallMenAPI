@@ -82,11 +82,27 @@ routes.get('/:gameName/characters/get', function(req, res){
     var session = driver.session();
     const gameName = req.params.gameName;
     session
-        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) WHERE g.name = '" + gameName + "'RETURN {name: c.name, backstory: c.backstory, portraitImagePath: c.portraitImagePath} AS character")
+        .run("MATCH (g:Game)-[:hasCharacter]-> (c:Character) WHERE g.name = '" + gameName + "'RETURN {name: c.name, backstory: c.backstory, portraitImagePath: c.portraitImagePath, wallpaperImagePath: c.wallpaperImagePath} AS character")
         .then(function(result) {
             res.status(200).json(result.records);
         })
         .catch(function(error){
+            res.status(400).json(error);
+        });
+    session.close()
+});
+
+// Get by charactername
+routes.get('/:characterName/get', function(req, res){
+    var session = driver.session();
+    const characterName = req.params.characterName;
+    session
+        .run("MATCH (c:Character{name:'" + characterName + "'}) RETURN {name: c.name, backstory: c.backstory, portraitImagePath: c.portraitImagePath, wallpaperImagePath: c.wallpaperImagePath} AS character")
+        .then(function(result) {
+            res.status(200).json(result.records);
+        })
+        .catch(function(error){
+            console.log(error);
             res.status(400).json(error);
         });
     session.close()
@@ -101,7 +117,8 @@ routes.post('/:gameName/characters/create', function(req, res){
         .run("MATCH (g:Game{name: '" + gameName +
             "'}) CREATE (g)-[:hasCharacter]->(c:Character{name:'" + character.name +
             "',backstory:'" + character.backstory +
-            "', portraitImagePath: '" + character.portraitImagePath + "'});")
+            "', portraitImagePath: '" + character.portraitImagePath +
+            "', wallpaperImagePath: '" + character.wallpaperImagePath + "'});")
         .then(function(result) {
             res.status(201).json(result.records);
         })
@@ -120,7 +137,8 @@ routes.post('/characters/:characterName/update', function(req, res){
         .run("MATCH (c:Character {name: '" + characterName +
             "'}) SET c.name = '" + character.name +
             "', c.backstory = '" + character.backstory +
-            "', c.portraitImagePath = '" + character.portraitImagePath + "';")
+            "', c.portraitImagePath = '" + character.portraitImagePath +
+            "', c.wallpaperImagePath = '" + character.wallpaperImagePath + "';")
         .then(function(result) {
             res.status(201).json(result.records);
         })

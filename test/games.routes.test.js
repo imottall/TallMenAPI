@@ -100,7 +100,8 @@ describe('CHARACTERS_FUNCTIONALITY', function() {
     var testCharacter = {
         name: "test",
         backstory: "test",
-        portraitImagePath: "test"
+        portraitImagePath: "test",
+        wallpaperImagePath: "test"
     };
     var testGame = {
         name: "test",
@@ -137,7 +138,8 @@ describe('CHARACTERS_FUNCTIONALITY', function() {
         testCharacter = {
             name: "update",
             backstory: "update",
-            portraitImagePath: "update"
+            portraitImagePath: "update",
+            wallpaperImagePath: "update"
         };
         chai.request(server)
             .post('/characters/test/update')
@@ -166,6 +168,19 @@ describe('CHARACTERS_FUNCTIONALITY', function() {
             .end(function (err, res) {
                 res.should.have.status(200);
                 res.body.should.be.an('array');
+                done();
+            })
+    });
+
+    it('can return a specific character by name ', function (done) {
+        chai.request(server)
+            .get('/' + testCharacter.name + '/get')
+            .end(function (err, res) {
+                res.should.have.status(200);
+                res.body.should.be.an('array');
+                res.body[0].should.have.property('_fields').that.is.a('array');
+                res.body[0]._fields[0].should.have.property('name').that.is.a('string');
+                res.body[0]._fields[0].name.should.equal(testCharacter.name);
                 done();
             })
     });
