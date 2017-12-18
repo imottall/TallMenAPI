@@ -15,6 +15,11 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
         password: "test"
     };
 
+    mongoose.connection.collections.accounts.drop();
+    mongoose.connection.collections.forums.drop();
+    mongoose.connection.collections.posts.drop();
+    mongoose.connection.collections.replies.drop();
+
     it('can create a account', function (done) {
         chai.request(server)
             .post('/accounts/register')
@@ -182,4 +187,7 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
     });
 
     mongoose.connection.collections.accounts.drop();
+    mongoose.connection.collections.forums.drop();
+    mongoose.connection.collections.posts.drop();
+    mongoose.connection.collections.replies.drop();
 });

@@ -14,7 +14,10 @@ describe('FORUMS_FUNCTIONALITY', function() {
         topic: "test"
     };
 
+    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.forums.drop();
+    mongoose.connection.collections.posts.drop();
+    mongoose.connection.collections.replies.drop();
 
     it('can create a forum', function (done) {
         chai.request(server)
@@ -97,7 +100,10 @@ describe('FORUMS_FUNCTIONALITY', function() {
             })
     });
 
+    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.forums.drop();
+    mongoose.connection.collections.posts.drop();
+    mongoose.connection.collections.replies.drop();
 });
 
 describe('POSTS_FUNCTIONALITY', function() {
@@ -113,8 +119,10 @@ describe('POSTS_FUNCTIONALITY', function() {
         password: "testwoord"
     };
 
+    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.forums.drop();
     mongoose.connection.collections.posts.drop();
+    mongoose.connection.collections.replies.drop();
 
     it('REPEAT | can create a forum', function (done) {
         chai.request(server)
@@ -244,9 +252,10 @@ describe('POSTS_FUNCTIONALITY', function() {
             })
     });
 
+    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.forums.drop();
     mongoose.connection.collections.posts.drop();
-    mongoose.connection.collections.accounts.drop();
+    mongoose.connection.collections.replies.drop();
 });
 
 describe('POSTS_FUNCTIONALITY', function() {
@@ -264,9 +273,9 @@ describe('POSTS_FUNCTIONALITY', function() {
         password: "test"
     };
 
+    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.forums.drop();
     mongoose.connection.collections.posts.drop();
-    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.replies.drop();
 
     it('REPEAT | can create a forum', function (done) {
@@ -405,11 +414,10 @@ describe('POSTS_FUNCTIONALITY', function() {
             })
     });
 
-    mongoose.connection.on('open', function(){
-        mongoose.connection.db.dropDatabase(function(err){
-            console.log(err);
-        });
-    });
+    mongoose.connection.collections.accounts.drop();
+    mongoose.connection.collections.forums.drop();
+    mongoose.connection.collections.posts.drop();
+    mongoose.connection.collections.replies.drop();
 });
 
 describe('REFERENCES', function() {
@@ -427,9 +435,9 @@ describe('REFERENCES', function() {
         password: "test"
     };
 
+    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.forums.drop();
     mongoose.connection.collections.posts.drop();
-    mongoose.connection.collections.accounts.drop();
     mongoose.connection.collections.replies.drop();
 
     it('REPEAT | can create a forum', function (done) {
@@ -548,9 +556,8 @@ describe('REFERENCES', function() {
             })
     });
 
-    mongoose.connection.on('open', function(){
-        mongoose.connection.db.dropDatabase(function(err){
-            console.log(err);
-        });
-    });
+    mongoose.connection.collections.accounts.drop();
+    mongoose.connection.collections.forums.drop();
+    mongoose.connection.collections.posts.drop();
+    mongoose.connection.collections.replies.drop();
 });
