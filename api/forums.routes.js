@@ -67,7 +67,7 @@ routes.get('/:forumId/posts/get', function(req, res) {
 routes.get('/:gameName/game/posts/get', function(req, res) {
     const gameName = req.params.gameName;
 
-    Forums.findOne({game: gameName})
+    Forums.findOne({topic: gameName})
         .populate('posts')
         .then((response) => res.status(200).json(response))
         .catch((error) => res.status(400).json(error));

@@ -6,10 +6,6 @@ const ForumSchema = new Schema({
         type: String,
         required: true
     },
-    game: {
-        type: String,
-        required: false
-    },
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'post'

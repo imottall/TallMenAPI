@@ -49,7 +49,7 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
             .post('/accounts/register')
             .send(testAccount)
             .end(function(err, res) {
-                res.should.not.have.status(401);
+                res.should.not.have.status(201);
                 res.body.should.be.an('object');
                 done();
             })
@@ -74,6 +74,7 @@ describe('ACCOUNT_FUNCTIONALITY', function() {
         chai.request(server)
             .get('/accounts/' + _id + '/get')
             .end(function(err, res) {
+                console.log(res.body);
                 res.should.have.status(200);
                 res.body.should.be.an('object');
                 res.body.should.have.property('_id').that.is.a('string');

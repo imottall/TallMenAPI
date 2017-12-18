@@ -11,8 +11,7 @@ chai.use(chaiHttp);
 describe('FORUMS_FUNCTIONALITY', function() {
     var _id;
     var testForum = {
-        topic: "test",
-        game: "test"
+        topic: "test"
     };
 
     mongoose.connection.collections.forums.drop();
@@ -31,7 +30,7 @@ describe('FORUMS_FUNCTIONALITY', function() {
     });
 
     it('cant create a forum with incomplete data', function (done) {
-        var empty = { game: "test"};
+        var empty = { };
         chai.request(server)
             .post('/forums/create')
             .send(empty)
@@ -107,8 +106,7 @@ describe('POSTS_FUNCTIONALITY', function() {
     var post_id;
     var testPost;
     var testForum = {
-        topic: "test",
-        game: "test"
+        topic: "test"
     };
     var testUser = {
         name: "test",
@@ -189,11 +187,11 @@ describe('POSTS_FUNCTIONALITY', function() {
 
     it('can get all existing posts for a forum found by game', function (done) {
         chai.request(server)
-            .get('/' + testForum.game + '/game/posts/get')
+            .get('/' + testForum.topic + '/game/posts/get')
             .end(function (err, res) {
                 res.should.have.status(200);
-                res.body.should.have.property('game').that.is.a('string');
-                res.body.game.should.equal(testForum.game);
+                res.body.should.have.property('topic').that.is.a('string');
+                res.body.topic.should.equal(testForum.topic);
                 done();
             })
     });
